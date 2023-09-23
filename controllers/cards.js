@@ -12,7 +12,7 @@ module.exports.addCard = (req, res, next) => {
       Card.findById(card._id)
         .orFail()
         .populate('owner')
-        .then((data) => res.status(httpConstants.HTTP_STATUS_OK).send(data))
+        .then((data) => res.status(httpConstants.HTTP_STATUS_CREATED).send(data))
         .catch((err) => {
           if (err instanceof mongoose.Error.DocumentNotFoundError) {
             next(new NotFoundError('Карточка с указанным _id не найдена.'));
