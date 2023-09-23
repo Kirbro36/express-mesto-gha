@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const errorHandler = require('./middlewares/error-handler');
 
+const router = express.Router();
+
 const { PORT = 3000, DB_URL = 'mongodb://localhost:27017/mestodb' } = process.env;
 
 const app = express();
@@ -26,13 +28,14 @@ mongoose.connect(DB_URL, {
   useUnifiedTopology: true,
 });
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: '64fc5e221403275f16708640',
-  };
-  next();
-});
+// app.use((req, res, next) => {
+//   req.user = {
+//     _id: '64fc5e221403275f16708640',
+//   };
+//   next();
+// });
 
+app.use(router);
 app.use('/', require('./routes/index'));
 
 app.use(errors());
